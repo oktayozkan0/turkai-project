@@ -7,17 +7,16 @@ RUN touch /var/log/cron.log
 
 RUN apt-get update && apt-get install tzdata && apt-get -y install cron
 
-RUN apt-get install -y python3 python3-pip
+RUN apt-get install -y python3.8 python3-pip
+RUN python3 -m pip install --upgrade pip
 RUN apt-get clean
-RUN pip3 install scrapy scrapyd pika
-
 ENV LANG C.UTF-8
 ENV LC_ALL C.UTF-8
 ENV PYTHONUNBUFFERED=1
-
 ENV APP_HOME /usr/src/app
 WORKDIR /$APP_HOME
-
 COPY . $APP_HOME/
+
+RUN pip3 install -r requirements.txt
 
 CMD cron && tail -f /var/log/cron.log

@@ -1,23 +1,22 @@
 import pika
 from scrapy.utils.serialize import ScrapyJSONEncoder
+import os
 
 
 class RabbitMQPipeline:
-    def __init__(self, rabbit_uri, rabbit_q) -> None:
-        #self.rabbit_uri = "amqp://guest:guest@localhost:5672/"
-        self.rabbit_uri = rabbit_uri
-        self.rabbit_q = rabbit_q
+    def __init__(self) -> None:
+        self.host = os.environ.get("RABBITMQ_HOST")
+        self.amqp_port = int(os.environ.get("RABBITMQ_AMQP_PORT"))
+        self.rabbit_q = os.environ.get("RABBITMQ_QUEUE")
         self.encoder = ScrapyJSONEncoder()
 
-    @classmethod
-    def from_crawler(cls, crawler):
-        return cls(
-            rabbit_uri=crawler.settings.get('RABBITMQ_URI'),
-            rabbit_q=crawler.settings.get('RABBITMQ_Q')
-        )
-
     def open_spider(self, spider):
-        params = pika.URLParameters(self.rabbit_uri)
+        credentials = pika.PlainCredentials('guest', 'gueset')
+        params = pika.ConnectionParameters(self.host,
+                                        self.amqp_port,
+                                        "/",
+                                        credentials)
+        conn = pika.BlockingConnection(params)
         params.heartbeat = 900
         conn = pika.BlockingConnection(params)
         self._channel = conn.channel()
