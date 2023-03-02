@@ -1,13 +1,20 @@
-from itemadapter import ItemAdapter
 import pika
 from scrapy.utils.serialize import ScrapyJSONEncoder
 
 
 class RabbitMQPipeline:
-    def __init__(self) -> None:
-        self.rabbit_uri = "amqp://guest:guest@localhost:5672/"
-        self.rabbit_q = "criminals"
+    def __init__(self, rabbit_uri, rabbit_q) -> None:
+        #self.rabbit_uri = "amqp://guest:guest@localhost:5672/"
+        self.rabbit_uri = rabbit_uri
+        self.rabbit_q = rabbit_q
         self.encoder = ScrapyJSONEncoder()
+
+    @classmethod
+    def from_crawler(cls, crawler):
+        return cls(
+            rabbit_uri=crawler.settings.get('RABBITMQ_URI'),
+            rabbit_q=crawler.settings.get('RABBITMQ_Q')
+        )
 
     def open_spider(self, spider):
         params = pika.URLParameters(self.rabbit_uri)

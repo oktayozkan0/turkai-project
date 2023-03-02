@@ -1,3 +1,5 @@
+import os
+
 BOT_NAME = "interpol"
 
 SPIDER_MODULES = ["interpol.spiders"]
@@ -9,6 +11,9 @@ ROBOTSTXT_OBEY = False
 ITEM_PIPELINES = {
    "interpol.pipelines.RabbitMQPipeline": 300,
 }
+DOWNLOAD_DELAY = float(os.environ.get("DOWNLOAD_DELAY"))
+RABBITMQ_URI = os.environ.get("RABBITMQ_URI")
+RABBITMQ_Q = os.environ.get("RABBITMQ_Q")
 
 #USER_AGENT = "interpol (+http://www.yourdomain.com)"
 #CONCURRENT_REQUESTS = 32
@@ -25,5 +30,3 @@ ITEM_PIPELINES = {
 #HTTPCACHE_DIR = "httpcache"
 #HTTPCACHE_IGNORE_HTTP_CODES = []
 #HTTPCACHE_STORAGE = "scrapy.extensions.httpcache.FilesystemCacheStorage"
-
-
