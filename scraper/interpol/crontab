@@ -1,1 +1,0 @@
-*/5  * * * * root scrapy crawl wanted >> /var/log/cron.log 2>&1

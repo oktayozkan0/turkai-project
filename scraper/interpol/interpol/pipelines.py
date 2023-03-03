@@ -13,11 +13,14 @@ class RabbitMQPipeline:
         self.encoder = ScrapyJSONEncoder()
 
     def open_spider(self, spider):
-        credentials = pika.PlainCredentials(self.rabbit_user, self.rabbit_pass)
+        credentials = pika.PlainCredentials(self.rabbit_user,
+                                            self.rabbit_pass)
+        
         params = pika.ConnectionParameters(self.host,
                                         self.amqp_port,
                                         "/",
                                         credentials)
+
         conn = pika.BlockingConnection(params)
         params.heartbeat = 900
         conn = pika.BlockingConnection(params)

@@ -1,8 +1,5 @@
 from scrapy import signals
 
-# useful for handling different item types with a single interface
-from itemadapter import is_item, ItemAdapter
-
 
 class InterpolSpiderMiddleware:
     @classmethod

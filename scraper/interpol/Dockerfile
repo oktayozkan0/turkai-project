@@ -1,11 +1,5 @@
 FROM ubuntu:focal
 
-ADD crontab /etc/cron.d/hello-cron
-RUN chmod 0644 /etc/cron.d/hello-cron
-RUN touch /var/log/cron.log
-
-
-RUN apt-get update && apt-get install tzdata && apt-get -y install cron
 
 RUN apt-get install -y python3.8 python3-pip
 RUN python3 -m pip install --upgrade pip
@@ -19,4 +13,4 @@ COPY . $APP_HOME/
 
 RUN pip3 install -r requirements.txt
 
-CMD cron && tail -f /var/log/cron.log
+CMD ["crond", "-f", "-d", "8"]
