@@ -5,13 +5,15 @@ import os
 
 class RabbitMQPipeline:
     def __init__(self) -> None:
-        self.host = os.environ.get("RABBITMQ_HOST")
+        self.host = "rabbitmq"
+        self.rabbit_user = os.environ.get("RABBITMQ_DEFAULT_USER")
+        self.rabbit_pass = os.environ.get("RABBITMQ_DEFAULT_PASS")
         self.amqp_port = int(os.environ.get("RABBITMQ_AMQP_PORT"))
         self.rabbit_q = os.environ.get("RABBITMQ_QUEUE")
         self.encoder = ScrapyJSONEncoder()
 
     def open_spider(self, spider):
-        credentials = pika.PlainCredentials('guest', 'gueset')
+        credentials = pika.PlainCredentials(self.rabbit_user, self.rabbit_pass)
         params = pika.ConnectionParameters(self.host,
                                         self.amqp_port,
                                         "/",
