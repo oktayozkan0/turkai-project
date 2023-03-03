@@ -32,5 +32,9 @@ class RabbitMQPipeline:
     
     def process_item(self, item, spider):
         data = self.encoder.encode(item)
-        self._channel.basic_publish(body=data, exchange="", routing_key=self.rabbit_q)
+        self._channel.basic_publish(
+            body=data,
+            exchange="",
+            routing_key=self.rabbit_q
+        )
         return item
