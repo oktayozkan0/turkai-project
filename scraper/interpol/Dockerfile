@@ -1,6 +1,7 @@
 FROM ubuntu:focal
 
 
+RUN apt-get update
 RUN apt-get install -y python3.8 python3-pip
 RUN python3 -m pip install --upgrade pip
 RUN apt-get clean
@@ -10,7 +11,6 @@ ENV PYTHONUNBUFFERED=1
 ENV APP_HOME /usr/src/app
 WORKDIR /$APP_HOME
 COPY . $APP_HOME/
-
 RUN pip3 install -r requirements.txt
 
-CMD ["crond", "-f", "-d", "8"]
+CMD ["python3", "main.py"]

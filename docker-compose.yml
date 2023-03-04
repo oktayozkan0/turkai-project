@@ -15,12 +15,11 @@ services:
 
   scraper:
     build: .\scraper\interpol
-    depends_on:
-      - rabbitmq
     networks:
       - rabbitmq_go_net
     env_file:
       - .env
+    restart: always
 
 networks:
   rabbitmq_go_net:

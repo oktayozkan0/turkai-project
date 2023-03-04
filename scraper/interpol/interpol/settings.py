@@ -11,7 +11,7 @@ ROBOTSTXT_OBEY = False
 ITEM_PIPELINES = {
    "interpol.pipelines.RabbitMQPipeline": 300,
 }
-DOWNLOAD_DELAY = float(os.environ.get("DOWNLOAD_DELAY"))
+DOWNLOAD_DELAY = 0.5
 
 
 #USER_AGENT = "interpol (+http://www.yourdomain.com)"
