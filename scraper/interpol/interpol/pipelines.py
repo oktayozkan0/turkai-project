@@ -21,14 +21,13 @@ class RabbitMQPipeline:
                                         "/",
                                         credentials)
 
-        conn = pika.BlockingConnection(params)
-        params.heartbeat = 900
-        conn = pika.BlockingConnection(params)
-        self._channel = conn.channel()
+        self.conn = pika.BlockingConnection(params)
+        self._channel = self.conn.channel()
         self._channel.queue_declare(queue=self.rabbit_q, durable=True)
     
     def close_spider(self, spider):
         self._channel.close()
+        self.conn.close()
     
     def process_item(self, item, spider):
         data = self.encoder.encode(item)
