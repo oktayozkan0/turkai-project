@@ -31,8 +31,8 @@ class Rabbit:
 def to_mongo():
     rabbit = Rabbit()
     mongo = DBMongo()
+    MONGO_COLLECTION = os.environ.get("MONGO_COLLECTION")
     while True:
-        MONGO_COLLECTION = os.environ.get("MONGO_COLLECTION")
         data = rabbit.consume_data()
         database = mongo.get_db()
         if data is None:
