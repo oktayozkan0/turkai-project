@@ -8,3 +8,4 @@ class InterpolItem(scrapy.Item):
     entity_id = scrapy.Field()
     thumbnail = scrapy.Field()
     url = scrapy.Field()
+    date = scrapy.Field()

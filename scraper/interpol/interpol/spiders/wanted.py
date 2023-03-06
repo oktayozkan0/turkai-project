@@ -1,5 +1,6 @@
 import scrapy
 from ..items import InterpolItem
+import datetime
 
 
 class WantedSpider(scrapy.Spider):
@@ -36,6 +37,7 @@ class WantedSpider(scrapy.Spider):
                 item["thumbnail"] = None
             entity_id = d.get('entity_id').replace('/','-')
             item["url"] = f"https://www.interpol.int/How-we-work/Notices/View-Red-Notices#{entity_id}"
+            item["date"] = datetime.datetime.now()
             yield item
 
         # yields scrapy request if page has more than 1 page
@@ -60,4 +62,5 @@ class WantedSpider(scrapy.Spider):
             except:
                 item["thumbnail"] = None
             item["url"] = response.url
+            item["date"] = datetime.datetime.now()
             yield item
