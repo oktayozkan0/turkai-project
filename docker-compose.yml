@@ -33,7 +33,7 @@ services:
       - MONGO_API_USER=${MONGO_API_USER}
       - MONGO_API_PASS=${MONGO_API_PASS}
       - MONGO_PORT=${MONGO_PORT}
-      - MONGO_DB=
+      - MONGO_DB=${MONGO_DB}
     networks:
       - scrape_net
     volumes:
