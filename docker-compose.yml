@@ -56,6 +56,7 @@ services:
       - MONGO_PORT=${MONGO_PORT}
       - MONGO_DB=${MONGO_DB}
       - MONGO_COLLECTION=${MONGO_COLLECTION}
+      - WAIT_AFTER_CONSUME=${WAIT_AFTER_CONSUME}
 
 networks:
   scrape_net:

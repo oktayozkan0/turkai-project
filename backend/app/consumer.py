@@ -29,6 +29,7 @@ class Rabbit:
 
 
 def to_mongo():
+    WAIT_AFTER_CONSUME = os.environ.get("WAIT_AFTER_CONSUME")
     try:
         rabbit = Rabbit()
     except:
@@ -40,7 +41,6 @@ def to_mongo():
     MONGO_COLLECTION = os.environ.get("MONGO_COLLECTION")
     while True:
         data = rabbit.consume_data()
-        time.sleep(0.5)
         database = mongo.get_db()
         if data is None:
             continue
@@ -50,6 +50,7 @@ def to_mongo():
             continue
         if data is not None:
             database[MONGO_COLLECTION].insert_one(q_data)
+            time.sleep(float(WAIT_AFTER_CONSUME))
         else:
-            time.sleep(30)
+            time.sleep(15)
 
