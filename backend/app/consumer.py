@@ -40,6 +40,7 @@ def to_mongo():
     MONGO_COLLECTION = os.environ.get("MONGO_COLLECTION")
     while True:
         data = rabbit.consume_data()
+        time.sleep(0.5)
         database = mongo.get_db()
         if data is None:
             continue
