@@ -23,3 +23,6 @@ Bu dosya MongoDB çalıştırıldıktan hemen sonra çalışır. .env içerisind
 .env içerisinde DOWNLOAD_DELAY ve SCRAPE_EVERY_MINUTE düşürüldüğünde interpol api'ı girişimizi engelliyor bu sebeple bir süre delay koymak şimdilik en iyi çözüm.
 </br>
 backend klasörü içerisinde backend, scraper klasörü içerisinde scraper dokümantasyonu bulunmaktadır.
+</br>
+<h3>Verilerin tamamının alınamaması</h3>
+https://www.interpol.int/How-we-work/Notices/View-Red-Notices websitesinde 7000+ kayıt bulunuyor fakat buradan maksimum 160 adet alabiliyoruz. Scraper'da birkaç filtre koyarak daha fazla alabiliyoruz ancak filtreleri detaylandırdıkça scraper süresi uzuyor. Bu 

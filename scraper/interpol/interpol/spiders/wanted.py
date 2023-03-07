@@ -18,13 +18,34 @@ class WantedSpider(scrapy.Spider):
         ).getall()
         for d in data:
             yield scrapy.Request(
-                f"https://ws-public.interpol.int/notices/v1/red?arrestWarrantCountryId={d}&&resultPerPage=160&page=1",
-                callback=self.paging_if_necessary
+                f"https://ws-public.interpol.int/notices/v1/red?arrestWarrantCountryId={d}&resultPerPage=160&page=1",
+                callback=self.final_parse
             )
 
-    def paging_if_necessary(self, response):
+    def final_parse(self, response):
         data = response.json()
-        # yields items of first page
+        if data["total"] > 160:
+            country = data["query"]["arrestWarrantCountryId"]
+            for i in range(18,100):
+                yield scrapy.Request(f"https://ws-public.interpol.int/notices/v1/red?&ageMin={i}&ageMax={i}&arrestWarrantCountryId={country}", callback=self.detailed_filter)
+        else:
+            for d in data["_embedded"]["notices"]:
+                item = InterpolItem()
+                item["forename"] = d.get("forename")
+                item["name"] = d.get("name")
+                item["date_of_birth"] = d.get("date_of_birth")
+                item["entity_id"] = d.get("entity_id")
+                try:
+                    item["thumbnail"] = d.get("_links").get("thumbnail").get("href")
+                except:
+                    item["thumbnail"] = None
+                entity_id = d.get('entity_id').replace('/','-')
+                item["url"] = f"https://www.interpol.int/How-we-work/Notices/View-Red-Notices#{entity_id}"
+                item["date"] = datetime.datetime.now()
+                yield item
+
+    def detailed_filter(self, response):
+        data = response.json()
         for d in data["_embedded"]["notices"]:
             item = InterpolItem()
             item["forename"] = d.get("forename")
@@ -37,30 +58,5 @@ class WantedSpider(scrapy.Spider):
                 item["thumbnail"] = None
             entity_id = d.get('entity_id').replace('/','-')
             item["url"] = f"https://www.interpol.int/How-we-work/Notices/View-Red-Notices#{entity_id}"
-            item["date"] = datetime.datetime.now()
-            yield item
-
-        # yields scrapy request if page has more than 1 page
-        if int(data["_links"]["last"]["href"][-1]) > 1:
-            total_page = int(data["_links"]["last"]["href"][-1])
-            for i in range(2, total_page+1):
-                url_as_list = list(response.url)
-                url_as_list[-1] = str(i)
-                url = "".join(url_as_list)
-                yield scrapy.Request(url, callback=self.final_parse)
-
-    def final_parse(self, response):
-        data = response.json()
-        for d in data["_embedded"]["notices"]:
-            item = InterpolItem()
-            item["forename"] = d.get("forename")
-            item["name"] = d.get("name")
-            item["date_of_birth"] = d.get("date_of_birth")
-            item["entity_id"] = d.get("entity_id")
-            try:
-                item["thumbnail"] = d.get("_links").get("thumbnail").get("href")
-            except:
-                item["thumbnail"] = None
-            item["url"] = response.url
             item["date"] = datetime.datetime.now()
             yield item
