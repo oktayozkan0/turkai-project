@@ -29,7 +29,13 @@ class Rabbit:
 
 
 def to_mongo():
-    rabbit = Rabbit()
+    try:
+        rabbit = Rabbit()
+    except:
+        time.sleep(5)
+    finally:
+        rabbit = Rabbit()
+
     mongo = DBMongo()
     MONGO_COLLECTION = os.environ.get("MONGO_COLLECTION")
     while True:

@@ -10,7 +10,41 @@
 </head>
 
 <body>
-    {{data}}
+    <section class="text-gray-600 body-font">
+        <div class="container px-5 py-24 mx-auto">
+            <div class="flex flex-col text-center w-full mb-20">
+                <h1 class="sm:text-3xl text-2xl font-medium title-font mb-4 text-gray-900">Interpol Criminals</h1>
+                <p class="lg:w-2/3 mx-auto leading-relaxed text-base">This page contains Interpol Red Wanted List</p>
+                {% if new_item == True %}
+                <p class="lg:w-2/3 mx-auto leading-relaxed text-base">New listings added since your last visit</p>
+                <p class="lg:w-2/3 mx-auto leading-relaxed text-base">{{ new_count }} new listings</p>
+                {% endif %}
+            </div>
+            <div class="flex flex-wrap -m-2">
+                {% for i in data.items %}
+                <div class="p-2 lg:w-1/3 md:w-1/2 w-full">
+                    <div class="h-full flex items-center border-gray-200 border p-4 rounded-lg">
+                        <img alt="criminal"
+                            class="w-16 h-16 bg-gray-100 object-cover object-center flex-shrink-0 rounded-full mr-4"
+                            src="{{ i.thumbnail }}">
+                        <div class="flex-grow">
+                            <a class="text-gray-900 title-font font-medium" href="{{ i.url }}" target="_blank">{{ i.name
+                                }}
+                                {{ i.forename }}
+                                </h2>
+                                <p class="text-gray-500">{{ i.date_of_birth }}</p>
+                        </div>
+                    </div>
+                </div>
+                {% endfor %}
+            </div>
+        </div>
+    </section>
+    <div class="container px-5 py-24 mx-auto">
+        <a class="flex mx-auto mt-16 text-white bg-blue-500 border-0 py-2 px-8 focus:outline-none hover:bg-blue-600 rounded text-lg"
+            href="/api/?page={{data.page+1}}">Next Page</a>
+    </div>
 </body>
+
 
 </html>
