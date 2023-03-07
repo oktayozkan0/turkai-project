@@ -2,7 +2,8 @@
 
 # Kurulum
 ! - Bilgisayarınızda Docker kurulu olmalıdır.
-Docker kurduktan sonra aşağıdaki komutları Terminal'de çalıştırdıktan sonra servis hazır olacaktır. Ekstra bir konfigürasyon gerektirmemektedir.
+</br>
+Docker kurulumu sonrası aşağıdaki komutları Terminal'de çalıştırdığınızda servis hazır olacaktır. Ekstra bir konfigürasyon gerektirmemektedir.
 ```
 docker-compose build
 docker-compose up
