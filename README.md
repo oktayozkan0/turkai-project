@@ -2,6 +2,7 @@
 
 # Kurulum
 ! - Bilgisayarınızda Docker kurulu olmalıdır.
+Docker kurduktan sonra aşağıdaki komutları Terminal'de çalıştırdıktan sonra servis hazır olacaktır. Ekstra bir konfigürasyon gerektirmemektedir.
 ```
 docker-compose build
 docker-compose up
@@ -11,7 +12,7 @@ Backend ayağa kalkmasının ardından http://localhost:8001/api gidilerek site 
 Siteyi ziyaretinizde tarayıcınızın cookie'lerine ziyaretiniz sırasında kaç kayıt olduğu işlenir. Sayfa yenilendiğinde eğer DB'deki veri sayısı cookie'leriniz içerisindeki veri sayınızdan fazla ise 'New listings added since your last visit' şeklinde bir uyarı çıkar, altında ise kaç adet yeni kaydın eklendiği bilgisi verilir.
 
 # ENV
-Ana dizindeki .env dosyası düzenlenerek verinin kaç dakikada bir çekileceğini, verinin çekilme hızını (DOWNLOAD_DELAY) Rabbit ve Mongo'nun portlarını, kullanıcı adı ve şifrelerini değiştirebilirsiniz.
+Ana dizindeki .env dosyası düzenlenerek verinin kaç dakikada bir çekileceğini, verinin çekilme hızını (DOWNLOAD_DELAY), Rabbit ve Mongo'nun portlarını, kullanıcı adı ve şifrelerini değiştirebilirsiniz.
 
 
 # MONGO-INIT.SH
