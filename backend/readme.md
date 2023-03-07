@@ -15,7 +15,7 @@ Mongo ile bağlantı sağlamak için gerekli class buradadır.
 pydantic ile veri doğrulama işlemi buradan gerçekleştirilir.
 
 # routers.py
-tek endpointimiz olan /api 'a yapılan istekler burada işlenir. Burada Mongo'dan veri alınır ve kullanıcıya gösterilir ayrıca cookie işlemleri de burada yürütülür.
+tek endpointimiz olan /api 'a yapılan istekler burada işlenir. Burada Mongo'dan veri alınır ve kullanıcıya gösterilir ayrıca cookie ve pagination işlemleri de burada yürütülür.
 
 # main.py
 Uvicorn ile backend'imiz çalıştırılır
