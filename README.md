@@ -21,3 +21,5 @@ Bu dosya MongoDB çalıştırıldıktan hemen sonra çalışır. .env içerisind
 
 # NOT
 .env içerisinde DOWNLOAD_DELAY ve SCRAPE_EVERY_MINUTE düşürüldüğünde interpol api'ı girişimizi engelliyor bu sebeple bir süre delay koymak şimdilik en iyi çözüm.
+</br>
+Detaylı bilgiler için backend ve scraper klasörleri içerisinde de readme bulunmaktadır.
