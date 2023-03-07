@@ -10,3 +10,9 @@ Burada data pipeline'ımız var. open_spider() methoduyla spider ilk çalıştı
 close_spider() ile spider kapanırken rabbit ile bağlantıyı koparıyoruz.
 </br>
 process_item() ile veri geldiğinde bu veriyi rabbit'e yazıyoruz.
+
+# ./interpol/settings.py
+DOWNLOAD_DELAY ve pipelinelar gibi spider ile alakalı ayarlar burada tutulur.
+
+# ./interpol/spiders/wanted.py
+Spider'ın hangi url'lere istek atacağını, bu url'lerden dönen response'un içerisinden nelerin alınacağını burada yazıyoruz. Asıl scraper burada çalışıyor.
