@@ -16,3 +16,6 @@ Ana dizindeki .env dosyası düzenlenerek verinin kaç dakikada bir çekileceği
 
 # MONGO-INIT.SH
 Bu dosya MongoDB çalıştırıldıktan hemen sonra çalışır. .env içerisinden Mongo bilgilerini alır  ve bu bilgilere dayanarak yeni db, collection ve user oluşturur.
+
+# NOT
+.env içerisinde DOWNLOAD_DELAY ve SCRAPE_EVERY_MINUTE düşürüldüğünde interpol api'ı girişimizi engelliyor bu sebeple bir süre delay koymak şimdilik en iyi çözüm.
