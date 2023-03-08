@@ -2,8 +2,9 @@ from fastapi import APIRouter, Depends, Request
 from database import DBMongo
 from models import Criminal
 import os
-from fastapi_pagination import Page, Params, paginate
+from fastapi_pagination import paginate
 from fastapi.templating import Jinja2Templates
+from pagination_settings import Page, Params
 
 
 router = APIRouter(prefix="/api")
@@ -20,6 +21,12 @@ def get_criminals(request: Request, params: Params = Depends()):
     if int(request.cookies["item_length"]) < len(data):
         is_new_added = True
     new_count = len(data) - int(request.cookies["item_length"])
-    response = templates.TemplateResponse("base.html", {"request":request, "data": paginate(data, params), "new_item": is_new_added, "new_count": new_count})
+    response = templates.TemplateResponse(
+        "base.html", 
+            {"request":request,
+            "data": paginate(data, params),
+            "new_item": is_new_added,
+            "new_count": new_count}
+    )
     response.set_cookie(key="item_length", value=f"{len(data)}")
     return response
