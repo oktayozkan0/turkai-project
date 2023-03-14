@@ -1,5 +1,3 @@
-# TURK AI PYTHON DEVELOPER PROJESİ
-
 # Kurulum
 ! - Bilgisayarınızda Docker kurulu olmalıdır.
 </br>
